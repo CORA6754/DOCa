@@ -6,7 +6,63 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+
+
+
+
+
+
+
+const User = require('../app/models/User'); // Prilagodite putanju
+
+// Funkcija za kreiranje korisnika
+async function createUserr() {
+  try {
+    const newUser = new User({
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      password: 'yourSecurePassword'
+      // Uklonjeno polje `age`
+      // Uklonjeno polje `createdAt`
+    });
+
+    await newUser.save();
+    return { success: true, user: newUser };
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// Ruta za kreiranje korisnika
+router.get('/b', async (req, res) => {
+  const result = await createUserr();
+
+  if (result.success) {
+    res.status(201).json({
+      message: 'User created successfully',
+      user: result.user
+    });
+  } else {
+    res.status(500).json({
+      message: 'Failed to create user',
+      error: result.error
+    });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
 router.get('/a', userController.register);
+
 
 router.post('/register', async (req, res) => {
     const { name, password, email } = req.body;

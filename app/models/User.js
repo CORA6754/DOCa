@@ -1,27 +1,11 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-// Definišemo šemu za korisnike
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  age: {
-    type: Number
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    age: { type: Number, required: true }
 });
 
-// Kreiramo model na osnovu šeme i eksplicitno navodimo naziv kolekcije 'korisnici'
-const User = mongoose.model('User', userSchema, 'users');
+const User = mongoose.model('User', userSchema, 'fx');
 
 module.exports = User;

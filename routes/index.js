@@ -1,8 +1,12 @@
 const express = require('express');
 const { findUserByUsername, createUser, findUserByEmail } = require('../database/config');
 const router = express.Router();
+const userController  = require("../app/controllers/UserController")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+
+router.get('/a', userController.register);
 
 router.post('/register', async (req, res) => {
     const { name, password, email } = req.body;
